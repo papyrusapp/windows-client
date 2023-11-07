@@ -11,7 +11,18 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      }
     },
     "bundle": {
       "active": true,
@@ -58,7 +69,9 @@
         "height": 600,
         "resizable": true,
         "title": "Papyrus",
-        "width": 800
+        "width": 800,
+        "transparent": true,
+        "decorations": false
       }
     ]
   }
