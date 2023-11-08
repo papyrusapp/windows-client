@@ -20,10 +20,15 @@
     "@lezer/highlight": "^1.1.6",
     "@replit/codemirror-vim": "^6.0.14",
     "@tauri-apps/api": "^1.5.1",
+    "github-markdown-css": "^5.4.0",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18",
-    "styled-components": "^6.1.0"
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-react": "^9.0.1",
+    "styled-components": "^6.1.0",
+    "unified": "^11.0.4"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",

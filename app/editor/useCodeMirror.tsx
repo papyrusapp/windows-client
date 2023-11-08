@@ -7,7 +7,7 @@ import { tags } from "@lezer/highlight";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { vim } from "@replit/codemirror-vim";
+import { vim, Vim } from "@replit/codemirror-vim";
 
 interface Props {
   initialDoc: string,
@@ -75,6 +75,8 @@ const useCodeMirror = <T extends Element>(
         })
       ]
     });
+
+    Vim.map(":", "<Esc>");
 
     const view = new EditorView({
       state: startState,

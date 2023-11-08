@@ -18,7 +18,7 @@ const Home = () => {
       <Title />
       <Container>
         <Editor onChange={handleDocChange} initialDoc={doc} />
-        <Preview />
+        <Preview doc={doc} />
       </Container>
     </>
   );
