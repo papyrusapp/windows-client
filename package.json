@@ -21,6 +21,7 @@
     "@replit/codemirror-vim": "^6.0.14",
     "@tauri-apps/api": "^1.5.1",
     "github-markdown-css": "^5.4.0",
+    "hast-util-sanitize": "^5.0.1",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18",

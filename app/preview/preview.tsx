@@ -1,23 +1,45 @@
-import React from "react";
+import { createElement } from "react";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkReact from "remark-react/lib";
-import "github-markdown-css/github-markdown.css";
 import { PreviewWindow } from "./style";
+import RemarkCode from "./remarkCode";
+import { defaultSchema } from "hast-util-sanitize";
+import "github-markdown-css/github-markdown.css";
+import { ViewMode } from "../types";
 
 interface Props {
   doc: string
+  mode: ViewMode
+}
+
+const schema = {
+  ...defaultSchema,
+  attributes: {
+    ...defaultSchema.attributes,
+    code: [...(defaultSchema.attributes?.code || []), "className"]
+  }
 }
 
 const Preview = (props: Props) => {
-  const md = unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkReact, React as any)
-    .processSync(props.doc).result;
+  const { doc, mode } = props;
 
-  return <PreviewWindow className="markdown-body">{md as any}</PreviewWindow>;
+  if (mode !== ViewMode.Edit) {
+    const md = unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkReact, {
+        createElement: createElement,
+        sanitize: schema,
+        remarkReactComponents: {
+          code: RemarkCode
+        }
+      } as any)
+      .processSync(doc).result;
+
+    return <PreviewWindow $mode={mode} className="markdown-body editor" > {md as any}</PreviewWindow >;
+  }
 }
 
 export default Preview;

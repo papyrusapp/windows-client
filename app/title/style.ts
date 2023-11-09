@@ -2,14 +2,21 @@ import styled from "styled-components";
 
 export const TitleBar = styled.div`
   height: 30px;
-  background: rgba(30, 30, 30, 0.5);
+  width: 100%;
+  background-color: rgba(30, 30, 30, 0.5);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   border-bottom: 1px solid #1c1c1c;
+  align-items: center;
+`;
+
+export const TitleBarText = styled.h1`
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0px;
+  padding-left: 10px;
 `;
 
 export const TitleButton = styled.div`
@@ -20,12 +27,12 @@ export const TitleButton = styled.div`
   height: 30px;
 
   &:hover {
-    background: rgba(58, 58, 58, 0.5);
+    background-color: rgba(58, 58, 58, 0.5);
   }
 `;
 
 export const TitleButtonClose = styled(TitleButton)`
   &:hover {
-    background: rgba(255, 80, 70, 0.5);
+    background-color: rgba(255, 80, 70, 0.5);
   }
 `
