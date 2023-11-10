@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { EditorState } from "@codemirror/state";
-import { EditorView, keymap, highlightActiveLine, lineNumbers, highlightActiveLineGutter } from "@codemirror/view";
+import { EditorView, keymap, highlightActiveLine, lineNumbers, highlightActiveLineGutter, drawSelection } from "@codemirror/view";
 import { syntaxHighlighting, HighlightStyle, indentOnInput, bracketMatching } from "@codemirror/language";
 import { tags } from "@lezer/highlight";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
@@ -59,6 +59,7 @@ const useCodeMirror = <T extends Element>(
         indentOnInput(),
         bracketMatching(),
         highlightActiveLine(),
+        drawSelection(),
         markdown({
           base: markdownLanguage,
           codeLanguages: languages,

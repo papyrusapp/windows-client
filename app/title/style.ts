@@ -9,6 +9,7 @@ export const TitleBar = styled.div`
   position: fixed;
   border-bottom: 1px solid #1c1c1c;
   align-items: center;
+  z-index: 1;
 `;
 
 export const TitleBarText = styled.h1`
