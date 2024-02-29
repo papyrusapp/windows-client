@@ -8,5 +8,9 @@ export const Main = styled.main<{ $cursorStyle: string }>`
 `;
 
 export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  height: 100%;
+  overflow: hiden;
 `;

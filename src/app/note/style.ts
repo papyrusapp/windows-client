@@ -7,11 +7,19 @@ export const Container = styled.div`
 `;
 
 export const NoteResizer = styled.div`
-  width: 6px;
   display: flex;
   align-items: center;
+  padding: 12px 0px;
+  justify-content: center;
+  width: 6px;
   height: 100%;
   cursor: col-resize;
   flex-shrink: 0;
   background-color: ${(props) => props.theme.colors.white};
+`;
+
+export const ResizerColumn = styled.div`
+  width: 2px;
+  height: 100%;
+  background-color: red;
 `;

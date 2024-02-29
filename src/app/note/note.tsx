@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import Editor from "./components/editor/editor";
 import Preview from "./components/preview/preview";
 import { ViewMode } from "./types";
-import { Container, NoteResizer } from "./style";
+import { Container, NoteResizer, ResizerColumn } from "./style";
 import Header from "./components/header/header";
 
 const Note = () => {
@@ -20,7 +20,9 @@ const Note = () => {
       <Header setMode={setMode} mode={mode} />
       <Container>
         <Editor onChange={handleDocChange} initialDoc={doc} mode={mode} />
-        <NoteResizer />
+        <NoteResizer>
+          <ResizerColumn />
+        </NoteResizer>
         <Preview doc={doc} mode={mode} />
       </Container>
     </>
