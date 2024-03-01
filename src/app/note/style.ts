@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $cursorStyle: string }>`
   display: flex;
   width: 100%;
   height: 100%;
+  cursor: ${(props) => props.$cursorStyle};
 `;
 
 export const NoteResizer = styled.div`
@@ -11,15 +12,13 @@ export const NoteResizer = styled.div`
   align-items: center;
   padding: 12px 0px;
   justify-content: center;
-  width: 6px;
-  height: 100%;
+  width: 7px;
   cursor: col-resize;
   flex-shrink: 0;
-  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const ResizerColumn = styled.div`
-  width: 2px;
+  width: 1px;
   height: 100%;
-  background-color: red;
+  background-color: ${(props) => props.theme.colors.white};
 `;

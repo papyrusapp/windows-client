@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import { ViewMode } from "../../types";
 
-export const PreviewWindow = styled.div<{ $mode: ViewMode }>`
-  width: ${(props) => (props.$mode == ViewMode.Preview ? "100%" : "50%")};
+export const PreviewWindow = styled.div.attrs<{
+  $mode: ViewMode;
+  $width: number;
+}>((props) => ({
+  style: {
+    width: `${props.$mode == ViewMode.Preview ? "100" : props.$width}%`,
+  },
+}))`
   color: ${(props) => props.theme.colors.white};
   padding: 12px;
   background-color: transparent;

@@ -14,12 +14,9 @@ export const HeaderContainer = styled.div`
 `;
 
 export const HeaderTitle = styled.h2`
-  position: absolute;
   font-size: 15px;
   font-weight: 400;
   color: ${(props) => props.theme.colors.white};
-  left: 50%;
-  transform: translateX(-50%);
 `;
 
 export const HeaderButtons = styled.div`

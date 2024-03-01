@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { ViewMode } from "../../types";
 
-export const EditorWindow = styled.div<{ $mode: ViewMode }>`
+export const EditorWindow = styled.div.attrs<{
+  $mode: ViewMode;
+  $width: number;
+}>((props) => ({
+  style: {
+    width: `${props.$mode == ViewMode.Edit ? "100" : props.$width}%`,
+  },
+}))`
   height: 100%;
-  width: ${(props) => (props.$mode == ViewMode.Edit ? "100%" : "50%")};
 
   .cm-editor {
     outline: none;

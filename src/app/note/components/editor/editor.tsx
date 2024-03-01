@@ -7,11 +7,12 @@ import { ViewMode } from "../../types";
 interface Props {
   initialDoc: string;
   mode: ViewMode;
+  width: number;
   onChange: (doc: string) => void;
 }
 
 const Editor = (props: Props) => {
-  const { onChange, initialDoc, mode } = props;
+  const { onChange, initialDoc, mode, width } = props;
 
   if (mode !== ViewMode.Preview) {
     const handleChange = useCallback(
@@ -23,7 +24,13 @@ const Editor = (props: Props) => {
       onChange: handleChange,
     });
 
-    return <EditorWindow $mode={mode} ref={refContainer}></EditorWindow>;
+    return (
+      <EditorWindow
+        $mode={mode}
+        $width={width}
+        ref={refContainer}
+      ></EditorWindow>
+    );
   }
 };
 

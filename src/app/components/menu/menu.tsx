@@ -2,45 +2,59 @@
 
 import { useState } from "react";
 import { MenuContainer, MenuSection } from "./style";
+import NoteItem from "./components/noteItem";
 
 interface Props {
   width: number;
-}
-
-interface Note {
-  id: number;
-  name: string;
-  description: string;
 }
 
 const Menu = (props: Props) => {
   const { width } = props;
 
   const [notes] = useState<Note[]>([
-    // {
-    //   id: 1,
-    //   name: "School",
-    //   description: "sdf",
-    // },
-    // {
-    //   id: 2,
-    //   name: "Work",
-    //   description: "sdf",
-    // },
-    // {
-    //   id: 3,
-    //   name: "Mom",
-    //   description: "sdf",
-    // },
+    {
+      id: 1,
+      name: "School",
+      content: "# Hello, world!",
+      createdAt: 0,
+      updatedAt: 0,
+      progress: {
+        current: 3,
+        maximum: 8,
+      },
+      tag: [],
+    },
+    {
+      id: 2,
+      name: "Works",
+      content: "# Hello, mom!",
+      createdAt: 0,
+      updatedAt: 0,
+      progress: {
+        current: 2,
+        maximum: 3,
+      },
+      tag: [],
+    },
+    {
+      id: 3,
+      name: "Письки попки",
+      content: "# чеее!",
+      createdAt: 0,
+      updatedAt: 0,
+      progress: {
+        current: 0,
+        maximum: 0,
+      },
+      tag: [],
+    },
   ]);
 
   return (
     <MenuSection $width={width}>
       <MenuContainer>
         {notes.map((note: Note) => (
-          <div>
-            <h1>{note.name}</h1>
-          </div>
+          <NoteItem key={note.id} note={note} />
         ))}
       </MenuContainer>
     </MenuSection>

@@ -1,10 +1,11 @@
 import { EyeIcon, PencilIcon } from "@/app/styles/icons";
 import { ViewMode } from "../../../types";
 import { HeaderViewButton } from "../style";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   mode: ViewMode;
-  setMode: (mode: ViewMode) => void;
+  setMode: Dispatch<SetStateAction<ViewMode>>;
 }
 
 const ViewButtons = (props: Props) => {
@@ -13,7 +14,6 @@ const ViewButtons = (props: Props) => {
   if (mode === ViewMode.Edit || mode === ViewMode.Middle) {
     return (
       <HeaderViewButton
-        href="#"
         {...(mode === ViewMode.Edit && { $active: true })}
         onClick={() => setMode(ViewMode.Preview)}
       >
@@ -22,7 +22,7 @@ const ViewButtons = (props: Props) => {
     );
   } else if (mode === ViewMode.Preview) {
     return (
-      <HeaderViewButton href="#" onClick={() => setMode(ViewMode.Edit)}>
+      <HeaderViewButton onClick={() => setMode(ViewMode.Edit)}>
         <PencilIcon />
       </HeaderViewButton>
     );

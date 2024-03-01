@@ -8,14 +8,21 @@ import {
 import { ViewMode } from "../../types";
 import ViewButtons from "./components/viewButtons";
 import { SplitIcon } from "@/app/styles/icons";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   mode: ViewMode;
-  setMode: (mode: ViewMode) => void;
+  setMode: Dispatch<SetStateAction<ViewMode>>;
+  setWidth: Dispatch<SetStateAction<number>>;
 }
 
 const Header = (props: Props) => {
-  const { mode, setMode } = props;
+  const { mode, setMode, setWidth } = props;
+
+  const click = () => {
+    setMode(ViewMode.Middle);
+    setWidth(50);
+  };
 
   return (
     <HeaderSection>
@@ -24,9 +31,8 @@ const Header = (props: Props) => {
         <HeaderTitle>works/new-doc</HeaderTitle>
         <HeaderButtons>
           <HeaderViewButton
-            href="#"
             {...(mode === ViewMode.Middle && { $active: true })}
-            onClick={() => setMode(ViewMode.Middle)}
+            onClick={() => click()}
           >
             <SplitIcon />
           </HeaderViewButton>
