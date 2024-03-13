@@ -36,3 +36,27 @@ export const Resizer = styled.div`
   flex-shrink: 0;
   transform: translateX(-50%);
 `;
+
+export const Title = styled.h1`
+  font-size: 28px;
+  font-weight: 700;
+  color: ${theme.colors.white};
+`;
+
+export const Subtitle = styled.h2`
+  font-size: 13px;
+  font-weight: 700;
+  color: ${theme.colors.white};
+`;
+
+export const Main = styled.p`
+  font-size: 13px;
+  font-weight: 400;
+  color: ${theme.colors.white};
+`;
+
+export const Tag = styled.p`
+  font-size: 10px;
+  font-weight: 400;
+  color: ${theme.colors.white};
+`;

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api/tauri";
 import { MenuContainer, MenuSection } from "./style";
-import NoteItem from "./components/noteItem";
+import NoteItem from "./components/note/noteItem";
 
 interface Props {
   width: number;
@@ -11,51 +12,25 @@ interface Props {
 const Menu = (props: Props) => {
   const { width } = props;
 
-  const [notes] = useState<Note[]>([
-    {
-      id: 1,
-      name: "School",
-      content: "# Hello, world!",
-      createdAt: 0,
-      updatedAt: 0,
-      progress: {
-        current: 3,
-        maximum: 8,
-      },
-      tag: [],
-    },
-    {
-      id: 2,
-      name: "Works",
-      content: "# Hello, mom!",
-      createdAt: 0,
-      updatedAt: 0,
-      progress: {
-        current: 2,
-        maximum: 3,
-      },
-      tag: [],
-    },
-    {
-      id: 3,
-      name: "Письки попки",
-      content: "# чеее!",
-      createdAt: 0,
-      updatedAt: 0,
-      progress: {
-        current: 0,
-        maximum: 0,
-      },
-      tag: [],
-    },
-  ]);
+  const [list, setList] = useState<Item[]>([]);
+
+  useEffect(() => {
+    invoke<Item[]>("get_list")
+      .then((result) => {
+        console.log(result);
+        // setList(result);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <MenuSection $width={width}>
       <MenuContainer>
-        {notes.map((note: Note) => (
-          <NoteItem key={note.id} note={note} />
-        ))}
+        {
+          // list.map((item: Item) =>
+          //     item.kind ? <h1>Note {item.kind}</h1> : <h1>Folder {item.kind}</h1>,
+          //     )
+        }
       </MenuContainer>
     </MenuSection>
   );

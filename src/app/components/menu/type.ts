@@ -1,3 +1,9 @@
+interface Tag {
+  id: number;
+  title: string;
+  color: string;
+}
+
 interface Progress {
   current: number;
   maximum: number;
@@ -5,10 +11,28 @@ interface Progress {
 
 interface Note {
   id: number;
-  name: string;
+  kind: boolean;
+  title: string;
   content: string;
-  createdAt: number;
-  updatedAt: number;
+  created_at: number;
+  updated_at: number;
   progress: Progress;
-  tag: string[];
+  tag: Tag[];
 }
+
+interface Folder {
+  id: number;
+  kind: boolean;
+  title: string;
+  list: Item[];
+}
+
+interface NoteWrapper {
+  item: Note;
+}
+
+interface FolderWrapper {
+  item: Folder;
+}
+
+type Item = FolderWrapper | NoteWrapper;

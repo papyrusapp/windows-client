@@ -6,6 +6,7 @@ export const MenuSection = styled.div.attrs<{ $width: number }>((props) => ({
   },
 }))`
   height: 100%;
+  flex-shrink: 0;
   background-color: ${(props) => props.theme.colors.black80};
 `;
 

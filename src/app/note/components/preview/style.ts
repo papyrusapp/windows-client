@@ -1,17 +1,14 @@
 import styled from "styled-components";
-import { ViewMode } from "../../types";
 
-export const PreviewWindow = styled.div.attrs<{
-  $mode: ViewMode;
-  $width: number;
-}>((props) => ({
-  style: {
-    width: `${props.$mode == ViewMode.Preview ? "100" : props.$width}%`,
-  },
-}))`
+export const PreviewWindow = styled.div`
   color: ${(props) => props.theme.colors.white};
   padding: 12px;
   background-color: transparent;
+  flex-grow: 1;
+  inline-size: min-content;
+  line-break: anywhere;
+  word-wrap: break-word;
+  word-break: normal;
 
   :first-child {
     margin-top: 0px;

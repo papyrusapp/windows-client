@@ -12,7 +12,6 @@ import { ViewMode } from "../../types";
 interface Props {
   doc: string;
   mode: ViewMode;
-  width: number;
 }
 
 const schema = {
@@ -24,7 +23,7 @@ const schema = {
 };
 
 const Preview = (props: Props) => {
-  const { doc, mode, width } = props;
+  const { doc, mode } = props;
 
   if (mode !== ViewMode.Edit) {
     const md = unified()
@@ -40,11 +39,7 @@ const Preview = (props: Props) => {
       .processSync(doc).result;
 
     return (
-      <PreviewWindow
-        $mode={mode}
-        $width={width}
-        className="markdown-body editor"
-      >
+      <PreviewWindow className="markdown-body editor">
         {" "}
         {md as any}
       </PreviewWindow>

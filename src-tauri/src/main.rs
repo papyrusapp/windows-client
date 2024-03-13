@@ -1,7 +1,10 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use tauri::Manager;
+use tauri::{generate_context, generate_handler, Manager};
 use window_shadows::set_shadow;
+
+mod profile;
+use profile::{list::get_list, Profile};
 
 fn main() {
     tauri::Builder::default()
@@ -12,6 +15,8 @@ fn main() {
 
             Ok(())
         })
-        .run(tauri::generate_context!())
+        .manage(Profile::new())
+        .invoke_handler(generate_handler![get_list])
+        .run(generate_context!())
         .expect("error while running tauri application");
 }

@@ -37,7 +37,7 @@ const Note = () => {
     if (mouseDown) {
       const container = event.currentTarget.getBoundingClientRect();
       const newWidth = Math.min(
-        ((event.pageX - container.left) / container.width) * 100,
+        ((event.pageX - container.left - 3.5) / container.width) * 100,
         menuSize.max,
       );
       if (newWidth > menuSize.min) {
@@ -65,7 +65,7 @@ const Note = () => {
             <ResizerColumn />
           </NoteResizer>
         )}
-        <Preview doc={doc} mode={mode} width={100 - width} />
+        <Preview doc={doc} mode={mode} />
       </Container>
     </>
   );
