@@ -1,21 +1,22 @@
+use std::sync::Mutex;
 use self::list::{Item, Note, Folder};
 
 pub mod list;
 
 #[derive(Debug)]
 pub struct Profile {
-    list: Vec<Item>,
+    list: Mutex<Vec<Item>>,
 }
 
 impl Profile {
     pub fn new() -> Self {
         Self {
-            list: vec![
-                Item::Note(Note::new(1, "Piska".into(), 2, 3)),
-                Item::Note(Note::new(2, "Mama".into(), 0, 0)),
-                Item::Note(Note::new(3, "Danik".into(), 1, 6)),
-                Item::Folder(Folder::new(4, "Folder".into()))
-            ],
+            list: Mutex::new(vec![
+                Item::Note(Note::test("School".into(), 3, 10)),
+                Item::Folder(Folder::test("Home".into())),
+                Item::Note(Note::test("Shop".into(), 0, 0)),
+                Item::Note(Note::test("Coding".into(), 3, 5)),
+            ]),
         }
     }
 }

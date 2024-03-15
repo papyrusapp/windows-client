@@ -54,9 +54,3 @@ export const Main = styled.p`
   font-weight: 400;
   color: ${theme.colors.white};
 `;
-
-export const Tag = styled.p`
-  font-size: 10px;
-  font-weight: 400;
-  color: ${theme.colors.white};
-`;

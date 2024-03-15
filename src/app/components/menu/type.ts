@@ -1,7 +1,13 @@
+interface Color {
+  red: number;
+  green: number;
+  blue: number;
+}
+
 interface Tag {
   id: number;
   title: string;
-  color: string;
+  color: Color;
 }
 
 interface Progress {
@@ -11,28 +17,18 @@ interface Progress {
 
 interface Note {
   id: number;
-  kind: boolean;
   title: string;
   content: string;
   created_at: number;
   updated_at: number;
   progress: Progress;
-  tag: Tag[];
+  tags: Tag[];
 }
 
 interface Folder {
   id: number;
-  kind: boolean;
   title: string;
   list: Item[];
 }
 
-interface NoteWrapper {
-  item: Note;
-}
-
-interface FolderWrapper {
-  item: Folder;
-}
-
-type Item = FolderWrapper | NoteWrapper;
+type Item = Folder | Note;

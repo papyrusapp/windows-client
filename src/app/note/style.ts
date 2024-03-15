@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div<{ $cursorStyle: string }>`
   display: flex;
+  overflow-y: hidden;
   width: 100%;
   height: 100%;
   cursor: ${(props) => props.$cursorStyle};

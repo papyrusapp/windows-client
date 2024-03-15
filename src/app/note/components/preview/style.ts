@@ -9,6 +9,8 @@ export const PreviewWindow = styled.div`
   line-break: anywhere;
   word-wrap: break-word;
   word-break: normal;
+  overflow-y: auto;
+  scrollbar-color: ${(props) => props.theme.colors.black80} transparent;
 
   :first-child {
     margin-top: 0px;

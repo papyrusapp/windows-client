@@ -22,5 +22,9 @@ export const EditorWindow = styled.div.attrs<{
     .cm-activeLineGutter {
       background-color: ${(props) => props.theme.colors.black70};
     }
+
+    .cm-scroller {
+      scrollbar-color: ${(props) => props.theme.colors.black80} transparent;
+    }
   }
 `;

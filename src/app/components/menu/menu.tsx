@@ -2,8 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
-import { MenuContainer, MenuSection } from "./style";
+import {
+  ListContainer,
+  MenuContainer,
+  MenuSection,
+  SearchBox,
+  SearchInput,
+} from "./style";
 import NoteItem from "./components/note/noteItem";
+import { SearchIcon } from "@/app/styles/icons";
+import FolderItem from "./components/folder/foderItem";
 
 interface Props {
   width: number;
@@ -16,21 +24,28 @@ const Menu = (props: Props) => {
 
   useEffect(() => {
     invoke<Item[]>("get_list")
-      .then((result) => {
-        console.log(result);
-        // setList(result);
-      })
+      .then((result) => setList(result))
       .catch(console.error);
   }, []);
 
   return (
     <MenuSection $width={width}>
       <MenuContainer>
-        {
-          // list.map((item: Item) =>
-          //     item.kind ? <h1>Note {item.kind}</h1> : <h1>Folder {item.kind}</h1>,
-          //     )
-        }
+        <SearchBox>
+          <SearchIcon />
+          <SearchInput placeholder="Search..." />
+        </SearchBox>
+        <ListContainer>
+          {list.map((item) => {
+            if ("Note" in item) {
+              const noteItem = item as { Note: Note };
+              return <NoteItem note={noteItem.Note} />;
+            } else if ("Folder" in item) {
+              const folderItem = item as { Folder: Folder };
+              return <FolderItem folder={folderItem.Folder} />;
+            }
+          })}
+        </ListContainer>
       </MenuContainer>
     </MenuSection>
   );
