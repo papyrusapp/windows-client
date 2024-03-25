@@ -5,7 +5,7 @@ interface Color {
 }
 
 interface Tag {
-  id: number;
+  id: string;
   title: string;
   color: Color;
 }
@@ -16,7 +16,7 @@ interface Progress {
 }
 
 interface Note {
-  id: number;
+  id: string;
   title: string;
   content: string;
   created_at: number;
@@ -26,7 +26,7 @@ interface Note {
 }
 
 interface Folder {
-  id: number;
+  id: string;
   title: string;
   list: Item[];
 }

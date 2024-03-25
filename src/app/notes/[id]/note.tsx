@@ -7,7 +7,17 @@ import { ViewMode } from "./types";
 import { Container, NoteResizer, ResizerColumn } from "./style";
 import Header from "./components/header/header";
 
-const Note = () => {
+interface Params {
+  id: string;
+}
+
+interface Props {
+  params: Params;
+}
+
+const Note = (props: Props) => {
+  const { params } = props;
+
   const [doc, setDoc] = useState<string>("# Hello, World!\n");
   const [mode, setMode] = useState<ViewMode>(ViewMode.Middle);
   const [width, setWidth] = useState(50);

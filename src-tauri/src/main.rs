@@ -4,7 +4,7 @@ use tauri::{generate_context, generate_handler, Manager};
 use window_shadows::set_shadow;
 
 mod profile;
-use profile::{list::{get_list, add_note, add_folder}, Profile};
+use profile::{list::{get_list, add_note, find_note, add_folder}, Profile};
 
 fn main() {
     tauri::Builder::default()
@@ -16,7 +16,7 @@ fn main() {
             Ok(())
         })
         .manage(Profile::new())
-        .invoke_handler(generate_handler![get_list, add_note, add_folder])
+        .invoke_handler(generate_handler![get_list, add_note, find_note, add_folder])
         .run(generate_context!())
         .expect("error while running tauri application");
 }

@@ -39,10 +39,15 @@ const Menu = (props: Props) => {
           {list.map((item) => {
             if ("Note" in item) {
               const noteItem = item as { Note: Note };
-              return <NoteItem note={noteItem.Note} />;
+              return <NoteItem key={noteItem.Note.id} note={noteItem.Note} />;
             } else if ("Folder" in item) {
               const folderItem = item as { Folder: Folder };
-              return <FolderItem folder={folderItem.Folder} />;
+              return (
+                <FolderItem
+                  key={folderItem.Folder.id}
+                  folder={folderItem.Folder}
+                />
+              );
             }
           })}
         </ListContainer>

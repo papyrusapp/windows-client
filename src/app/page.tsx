@@ -1,7 +1,5 @@
-import Note from "./note/note";
-
 const Home = () => {
-  return <Note />;
+  return <h1>majkrasoft</h1>;
 };
 
 export default Home;

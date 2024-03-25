@@ -1,4 +1,3 @@
-import { Main, Tag } from "@/app/styles/globalStyles";
 import {
   NoteBlock,
   NoteDescription,
@@ -48,8 +47,14 @@ const NoteItem = (props: Props) => {
     }
   }, []);
 
+  // const findNote = () => {
+  //   invoke<string>("find_note", { id: note.id })
+  //     .then((result) => console.log(result))
+  //     .catch(console.error);
+  // };
+
   return (
-    <NoteBlock href="#">
+    <NoteBlock href={"/notes/1"}>
       <Row>
         <NoteTitle>{note.title}</NoteTitle>
         {note.progress.maximum > 0 && (
@@ -67,7 +72,7 @@ const NoteItem = (props: Props) => {
         </TimeBlock>
         <div>
           {note.tags.map((tag) => (
-            <TagItem tag={tag} />
+            <TagItem key={tag.id} tag={tag} />
           ))}
         </div>
       </Row>

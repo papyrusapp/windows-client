@@ -1,8 +1,9 @@
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::{time::{SystemTime, UNIX_EPOCH}};
 
 use super::Profile;
 use serde::Serialize;
 use tauri::{command, State};
+use uuid::Uuid;
 
 #[derive(Clone, Debug, Serialize)]
 struct Color {
@@ -13,7 +14,7 @@ struct Color {
 
 #[derive(Clone, Debug, Serialize)]
 struct Tag {
-    id: usize,
+    id: String,
     title: String,
     color: Color,
 }
@@ -26,7 +27,7 @@ struct Progress {
 
 #[derive(Clone, Debug, Serialize)]
 pub struct Note {
-    id: usize,
+    id: String,
     title: String,
     content: String,
     created_at: u64,
@@ -37,7 +38,7 @@ pub struct Note {
 
 #[derive(Clone, Debug, Serialize)]
 pub struct Folder {
-    id: usize,
+    id: String,
     title: String,
     list: Vec<Item>
 }
@@ -61,7 +62,7 @@ impl Color {
 impl Tag {
     fn new(title: String, color: Color) -> Self {
         Self {
-            id: 1,
+            id: Uuid::new_v4().to_string(),
             title,
             color
         }
@@ -80,7 +81,7 @@ impl Progress {
 impl Note {
     pub fn new() -> Self {
         Self {
-            id: 1,
+            id: Uuid::new_v4().to_string(),
             title: "".into(),
             content: "".into(),
             created_at: SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs(),
@@ -92,7 +93,7 @@ impl Note {
 
     pub fn test(content: String, progress_cur: u32, progress_max: u32) -> Self {
         Self {
-            id: 1,
+            id: Uuid::new_v4().to_string(),
             title: content.clone(),
             content,
             created_at: SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs(),
@@ -106,7 +107,7 @@ impl Note {
 impl Folder {
     pub fn new() -> Self {
         Self {
-            id: 1,
+            id: Uuid::new_v4().to_string(),
             title: "".into(),
             list: Vec::new(),
         }
@@ -114,7 +115,7 @@ impl Folder {
 
     pub fn test(title: String) -> Self {
         Self {
-            id: 1,
+            id: Uuid::new_v4().to_string(),
             title,
             list: vec![
                 Item::Note(Note::test("Chainik".into(), 0, 0)),
@@ -126,7 +127,7 @@ impl Folder {
 
     pub fn test_wihout_folder(title: String) -> Self {
         Self {
-            id: 1,
+            id: Uuid::new_v4().to_string(),
             title,
             list: vec![
                 Item::Note(Note::test("Not Chainik".into(), 0, 0)),
@@ -149,6 +150,34 @@ pub fn add_note(profile: State<Profile>) {
 #[command]
 pub fn edit_note(profile: State<Profile>) {
 
+}
+
+fn find_note_in_list(list: &Vec<Item>, id: &String) -> Result<Note, String> {
+    for item in list {
+        match item {
+            Item::Folder(folder) => {
+                match find_note_in_list(&folder.list, id) {
+                    Ok(result) => return Ok(result),
+                    _ => ()
+                }
+            },
+            Item::Note(note) => {
+                if &note.id == id {
+                    return Ok(note.clone());
+                }
+            }
+        }
+    }
+    
+    Err("Not found".into())
+}
+
+#[command]
+pub fn find_note(profile: State<Profile>, id: String) -> Result<Note, String> {
+    match find_note_in_list(&profile.list.lock().unwrap(), &id) {
+        Ok(result) => Ok(result),
+        Err(error) => Err(error)
+    }
 }
 
 #[command]
