@@ -1,25 +1,19 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import Editor from "./components/editor/editor";
 import Preview from "./components/preview/preview";
 import { ViewMode } from "./types";
 import { Container, NoteResizer, ResizerColumn } from "./style";
 import Header from "./components/header/header";
+import { useSearchParams } from "next/navigation";
+import useNoteState from "@/hooks/useNoteState";
 
-interface Params {
-  id: string;
-}
-
-interface Props {
-  params: Params;
-}
-
-const Note = (props: Props) => {
-  const { params } = props;
-
-  const [doc, setDoc] = useState<string>("# Hello, World!\n");
-  const [mode, setMode] = useState<ViewMode>(ViewMode.Middle);
+const NoteContent = () => {
+  const searchParams = useSearchParams();
+  const [id, setId] = useState(searchParams.get("id")!);
+  const [doc, setDoc] = useNoteState("read_note", "write_note", id);
+  const [mode, setMode] = useState<ViewMode>(ViewMode.Preview);
   const [width, setWidth] = useState(50);
   const [mouseDown, setMouseDown] = useState(false);
   const [cursorStyle, setCursorStyle] = useState("auto");
@@ -27,6 +21,11 @@ const Note = (props: Props) => {
     min: 20,
     max: 80,
   };
+
+  useEffect(() => {
+    setMode(ViewMode.Preview);
+    setId(searchParams.get("id")!);
+  }, [searchParams]);
 
   const handleDocChange = useCallback((newDoc: string) => {
     setDoc(newDoc);
@@ -60,6 +59,7 @@ const Note = (props: Props) => {
     <>
       <Header setMode={setMode} mode={mode} setWidth={setWidth} />
       <Container
+        onDoubleClick={() => mode == ViewMode.Preview && setMode(ViewMode.Edit)}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
         $cursorStyle={cursorStyle}
@@ -78,6 +78,14 @@ const Note = (props: Props) => {
         <Preview doc={doc} mode={mode} />
       </Container>
     </>
+  );
+};
+
+const Note = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NoteContent />
+    </Suspense>
   );
 };
 

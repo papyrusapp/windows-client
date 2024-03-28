@@ -4,31 +4,31 @@ import { useState } from "react";
 import NoteItem from "../note/noteItem";
 
 interface Props {
-  folder: Folder;
+  directory: Directory;
 }
 
 const FolderItem = (props: Props) => {
-  const { folder } = props;
+  const { directory } = props;
   const [isClosed, setIsClosed] = useState(true);
 
   return (
     <FolderContainer>
       <FolderBlock $isClosed={isClosed} onClick={() => setIsClosed(!isClosed)}>
-        <FolderTitle>{folder.title}</FolderTitle>
+        <FolderTitle>{directory.title}</FolderTitle>
         <ArrowIcon />
       </FolderBlock>
       {!isClosed && (
         <FolderList>
-          {folder.list.map((item) => {
+          {directory.list.map((item) => {
             if ("Note" in item) {
               const noteItem = item as { Note: Note };
               return <NoteItem key={noteItem.Note.id} note={noteItem.Note} />;
-            } else if ("Folder" in item) {
-              const folderItem = item as { Folder: Folder };
+            } else if ("Directory" in item) {
+              const directoryItem = item as { Directory: Directory };
               return (
                 <FolderItem
-                  key={folderItem.Folder.id}
-                  folder={folderItem.Folder}
+                  key={directoryItem.Directory.id}
+                  directory={directoryItem.Directory}
                 />
               );
             }

@@ -47,16 +47,10 @@ const NoteItem = (props: Props) => {
     }
   }, []);
 
-  // const findNote = () => {
-  //   invoke<string>("find_note", { id: note.id })
-  //     .then((result) => console.log(result))
-  //     .catch(console.error);
-  // };
-
   return (
-    <NoteBlock href={"/notes/1"}>
+    <NoteBlock href={"/note?id=" + note.id}>
       <Row>
-        <NoteTitle>{note.title}</NoteTitle>
+        <NoteTitle>{note.title === "" ? "Undefind" : note.title}</NoteTitle>
         {note.progress.maximum > 0 && (
           <ProgressBlock>
             <ProgressLine
@@ -77,7 +71,9 @@ const NoteItem = (props: Props) => {
         </div>
       </Row>
       <Row>
-        <NoteDescription>{note.content}</NoteDescription>
+        <NoteDescription>
+          {note.short_description === "" ? "Undefind" : note.short_description}
+        </NoteDescription>
       </Row>
     </NoteBlock>
   );

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { DropDownItemType } from "../navigation";
 import { TitleDropDownItem, TitleDropDownMenu } from "../style";
+import { invoke } from "@tauri-apps/api/tauri";
 
 interface Props {
   list: DropDownItemType[];
@@ -10,6 +11,7 @@ interface Props {
 
 const DropDownMenu = ({ list, isActive, setActiveIndex }: Props) => {
   const disable = () => {
+    invoke<void>("create_note").catch(console.error);
     setActiveIndex(-1);
   };
 

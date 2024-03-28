@@ -18,17 +18,17 @@ interface Progress {
 interface Note {
   id: string;
   title: string;
-  content: string;
+  short_description: string;
   created_at: number;
   updated_at: number;
   progress: Progress;
   tags: Tag[];
 }
 
-interface Folder {
+interface Directory {
   id: string;
   title: string;
   list: Item[];
 }
 
-type Item = Folder | Note;
+type Item = Directory | Note;

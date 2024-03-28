@@ -20,11 +20,11 @@ interface Props {
 const Menu = (props: Props) => {
   const { width } = props;
 
-  const [list, setList] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
-    invoke<Item[]>("get_list")
-      .then((result) => setList(result))
+    invoke<Item[]>("get_items")
+      .then((result) => setItems(result))
       .catch(console.error);
   }, []);
 
@@ -36,16 +36,16 @@ const Menu = (props: Props) => {
           <SearchInput placeholder="Search..." />
         </SearchBox>
         <ListContainer>
-          {list.map((item) => {
+          {items.map((item) => {
             if ("Note" in item) {
               const noteItem = item as { Note: Note };
               return <NoteItem key={noteItem.Note.id} note={noteItem.Note} />;
-            } else if ("Folder" in item) {
-              const folderItem = item as { Folder: Folder };
+            } else if ("Directory" in item) {
+              const directoryItem = item as { Directory: Directory };
               return (
                 <FolderItem
-                  key={folderItem.Folder.id}
-                  folder={folderItem.Folder}
+                  key={directoryItem.Directory.id}
+                  directory={directoryItem.Directory}
                 />
               );
             }

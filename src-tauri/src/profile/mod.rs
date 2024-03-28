@@ -1,5 +1,5 @@
-use std::sync::Mutex;
-use self::list::{Item, Note, Folder};
+use self::list::{Folder, Item, Note};
+use std::{fs::File, io::ErrorKind, sync::Mutex};
 
 pub mod list;
 
@@ -18,5 +18,26 @@ impl Profile {
                 Item::Note(Note::test("Coding".into(), 3, 5)),
             ]),
         }
+    }
+}
+
+pub struct Save;
+
+impl Save {
+    pub fn init() {
+        let save = File::open("save.data");
+
+        let _ = match save {
+            Ok(file) => file,
+            Err(error) => match error.kind() {
+                ErrorKind::NotFound => match File::create("sava.data") {
+                    Ok(file) => file,
+                    Err(error) => panic!("Problem creating the file: {:?}", error),
+                },
+                other_error => {
+                    panic!("Problem opening the file: {:?}", other_error);
+                }
+            },
+        };
     }
 }

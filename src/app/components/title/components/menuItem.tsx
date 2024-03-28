@@ -23,7 +23,6 @@ const MenuItem = ({
   return (
     <TitleButton
       key={index}
-      href="#"
       onClick={() => onMenuClick(index)}
       onMouseEnter={() => activeIndex !== -1 && onMenuClick(index)}
       {...(isActive && { $active: true })}
